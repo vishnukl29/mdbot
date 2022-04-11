@@ -1,6 +1,6 @@
 const {
 	bot,
-	genHydratedButtons,
+	genButtonMessage,
 	mentionMessage,
 	enableMention,
 	clearFiles,
@@ -15,22 +15,16 @@ bot(
 	async (message, match) => {
 		if (!match)
 			return await message.sendMessage(
-				await genHydratedButtons(
+				genButtonMessage(
 					[
-						{
-							urlButton: {
-								text: 'git',
-								url: 'https://github.com/lyfe00011/wa-bot',
-							},
-						},
-						{ button: { id: 'mention on', text: 'ON' } },
-						{ button: { id: 'mention off', text: 'OFF' } },
-						{ button: { id: 'mention get', text: 'GET' } },
+						{ id: 'mention on', text: 'ON' },
+						{ id: 'mention off', text: 'OFF' },
+						{ id: 'mention get', text: 'GET' },
 					],
 					'Mention Msg Manager'
 				),
 				{},
-				'template'
+				'button'
 			)
 		if (match == 'get') {
 			const msg = await mentionMessage()
