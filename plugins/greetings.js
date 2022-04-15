@@ -4,7 +4,7 @@ const {
 	deleteMessage,
 	bot,
 	getMessage,
-	genButtonMessage,
+	genHydratedButtons,
 	greetingsPreview,
 	clearGreetings,
 } = require('../lib/')
@@ -23,15 +23,21 @@ bot(
 		if (!match) {
 			await message.sendMessage(welcome.message)
 			return await message.sendMessage(
-				genButtonMessage(
+				await genHydratedButtons(
 					[
-						{ id: 'welcome on', text: 'ON' },
-						{ id: 'welcome off', text: 'OFF' },
+						{
+							urlButton: {
+								text: 'Example',
+								url: 'https://github.com/lyfe00011/wa-bot/wiki/Greetings',
+							},
+						},
+						{ button: { id: 'welcome on', text: 'ON' } },
+						{ button: { id: 'welcome off', text: 'OFF' } },
 					],
 					'Welcome'
 				),
 				{},
-				'button'
+				'template'
 			)
 		}
 		if (match == 'on' || match == 'off') {
@@ -68,15 +74,23 @@ bot(
 		if (!match) {
 			await message.sendMessage(welcome.message)
 			return await message.sendMessage(
-				genButtonMessage(
+				await genHydratedButtons(
 					[
-						{ id: 'goodbye on', text: 'ON' },
-						{ id: 'goodbye off', text: 'OFF' },
+						{
+							urlButton: {
+								url: 'https://github.com/lyfe00011/wa-bot/wiki/Greetings',
+								text: 'Example',
+							},
+						},
+						{
+							button: { id: 'goodbye on', text: 'ON' },
+						},
+						{ button: { id: 'goodbye off', text: 'OFF' } },
 					],
 					'Goodbye'
 				),
 				{},
-				'button'
+				'template'
 			)
 		}
 		if (match == 'on' || match == 'off') {
