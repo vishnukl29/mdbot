@@ -82,7 +82,7 @@ bot({ pattern: 'photo', fromMe: fm, desc: '' }, async (message, match) => {
 			'photo.png',
 			'photo'
 		),
-		{ quoted: message.data },
+		{ quoted: message.data, mimetype: 'image/png' },
 		'image'
 	)
 })
