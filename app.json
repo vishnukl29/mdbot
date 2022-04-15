@@ -13,6 +13,11 @@
 			"required": false,
 			"value": "false"
 		},
+		"LOG_MSG": {
+			"description": "log whatsapp msgs",
+			"required": false,
+			"value": "false"
+		},
 		"SUDO": {
 			"description": "admin",
 			"required": true,

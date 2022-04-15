@@ -1,4 +1,11 @@
-const { isAdmin, sleep, bot, numToJid } = require('../lib/')
+const {
+	isAdmin,
+	sleep,
+	bot,
+	numToJid,
+	jidToNum,
+	formatTime,
+} = require('../lib/')
 const fm = true
 
 bot(
@@ -150,6 +157,8 @@ bot(
 		const [_, code] = match.match(wa) || []
 		if (!code)
 			return await message.sendMessage(`_Give me a Group invite link._`)
+		const res = await message.infoInvite(code)
+		if (res.size > 256) return await message.sendMessage('*Group full!*')
 		await message.acceptInvite(code)
 		return await message.sendMessage(`_Joined_`)
 	}
@@ -168,5 +177,32 @@ bot(
 		const im = await isAdmin(participants, message.client.user.jid)
 		if (!im) return await message.sendMessage(`_I'm not admin._`)
 		await message.revokeInvite(message.jid)
+	}
+)
+
+bot(
+	{
+		pattern: 'ginfo ?(.*)',
+		fromMe: fm,
+		type: 'group',
+		desc: 'Shows group invite info',
+	},
+	async (message, match) => {
+		match = match || message.reply_message.text
+		if (!match)
+			return await message.sendMessage('*Example : info group_invte_link*')
+		const linkRegex = /chat.whatsapp.com\/([0-9A-Za-z]{20,24})/i
+		const [_, code] = match.match(linkRegex) || []
+		if (!code) return await message.sendMessage('_Invalid invite link_')
+		const res = await message.infoInvite(code)
+		return await message.sendMessage(
+			'```' +
+				`Name    : ${res.subject}
+Jid     : ${res.id}@g.us
+Owner   : ${jidToNum(res.creator)}
+Members : ${res.size}
+Created : ${formatTime(res.creation)}` +
+				'```'
+		)
 	}
 )
