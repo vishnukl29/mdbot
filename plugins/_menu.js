@@ -5,7 +5,7 @@ bot.addCommand(
 	{ pattern: 'menu ?(.*)', fromMe: true, dontAddCommandList: true },
 	async (message, match) => {
 		let CMD_HELP = `╭────────────────╮
-    				ᴡᴀ-ʙᴏᴛ
+    				KARCHI-OFC/clonedby VISHNU SER
 ╰────────────────╯
 
 ╭────────────────
