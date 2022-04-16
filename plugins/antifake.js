@@ -1,4 +1,4 @@
-const { bot, genButtonMessage, antiList, enableAntiFake } = require('../lib/')
+const { bot, genHydratedButtons, antiList, enableAntiFake } = require('../lib/')
 
 bot(
 	{
@@ -11,16 +11,22 @@ bot(
 	async (message, match) => {
 		if (!match)
 			return await message.sendMessage(
-				genButtonMessage(
+				await genHydratedButtons(
 					[
-						{ id: 'antifake list', text: 'LIST' },
-						{ id: 'antifake on', text: 'ON' },
-						{ id: 'antifake off', text: 'OFF' },
+						{
+							urlButton: {
+								text: 'Example',
+								url: 'https://github.com/lyfe00011/wa-bot/wiki/antifake',
+							},
+						},
+						{ button: { id: 'antifake list', text: 'LIST' } },
+						{ button: { id: 'antifake on', text: 'ON' } },
+						{ button: { id: 'antifake off', text: 'OFF' } },
 					],
 					'Antifake'
 				),
 				{},
-				'button'
+				'template'
 			)
 		if (match == 'list') {
 			let list = ''
